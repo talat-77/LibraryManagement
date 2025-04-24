@@ -55,7 +55,14 @@ namespace LibraryManagementAPI.Controllers
             await _bookWriteRepository.AddAsync(book);
             return Ok(book);
         }
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _bookWriteRepository.RemoveAsync();
+            if (!result)
+                return BadRequest("Kitap silinemedi.");
+            return NoContent();
+        }
         //[HttpPut]
         //public async Task <IActionResult> Update() { }
     }
