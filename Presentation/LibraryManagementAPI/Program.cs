@@ -1,3 +1,4 @@
+using LibraryManagement.Application;
 using LibraryManagement.Application.Mapping;
 using LibraryManagement.Persistence;
 namespace LibraryManagementAPI
@@ -15,6 +16,8 @@ namespace LibraryManagementAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddPersistenceService();
+            builder.Services.AddApplicationService();
+           
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             var app = builder.Build();
 

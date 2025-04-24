@@ -14,6 +14,6 @@ namespace LibraryManagement.Application.Repository
         IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true); //buradaki expression kullanımı linq sorguları için . Yani ben aldığım koşulu  sql e çevirip veritbanı üzerinden alıyorum sonucu .
                                                                                         
         Task<T> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true);
-        Task<T> GetByIdAsync(string id, bool tracking = true);
+        Task<T> GetByIdAsync(int id, bool tracking = true);
     }
 }

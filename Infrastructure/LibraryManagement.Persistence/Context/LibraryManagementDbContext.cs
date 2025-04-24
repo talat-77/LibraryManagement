@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Persistence.Context
 {
-    public class LibraryManagementDbContext:DbContext
+    public class LibraryManagementDbContext : DbContext
     {
         public LibraryManagementDbContext(DbContextOptions options) : base(options)
-        {}
+        { }
 
-        public DbSet<Author> Authors { get; set; } 
+        public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -38,7 +38,7 @@ namespace LibraryManagement.Persistence.Context
 
             return await base.SaveChangesAsync(cancellationToken);
             //burda SaveChangesAsync'i ezip eklenenlere CreatedDate, güncellenenlere UpdatedDate veriyoruz , 
-           // böylece her seferinde elle tarih atamakla uğraşmıyoruz
+            // böylece her seferinde elle tarih atamakla uğraşmıyoruz
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,19 +47,23 @@ namespace LibraryManagement.Persistence.Context
                 .Property(e => e.Name)
                 .HasMaxLength(100)
                 .IsRequired();
+
             modelBuilder.Entity<Book>()
                 .Property(e => e.Title)
                 .HasMaxLength(200)
                 .IsRequired();
+
             modelBuilder.Entity<Book>()
                 .HasOne(e => e.Author)
                 .WithMany(e => e.Books)
-                .HasForeignKey(e => e.Author.Id)    
+                .HasForeignKey(e => e.AuthorId)  // Doğru foreign key kullanımı
                 .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Book>()
                 .Property(e => e.Price)
                 .IsRequired()
                 .HasColumnType("decimal(10,2)");
         }
+
     }
-}
+};

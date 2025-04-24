@@ -31,19 +31,18 @@ namespace LibraryManagement.Persistence.Repository
             return query;
         }
 
-        public async Task<T> GetByIdAsync(string id, bool tracking)
+        public async Task<T> GetByIdAsync(int id, bool tracking = true)
         {
-            if (!int.TryParse(id, out int parsedId))
-            {
-          
-                return null;
-            }
             var query = Table.AsQueryable();
+
             if (!tracking)
                 query = query.AsNoTracking();
-            return await query.FirstOrDefaultAsync(p => p.Id == parsedId);
+
+            return await query.FirstOrDefaultAsync(p => p.Id == id);
         }
 
+
+       
 
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true)
         {

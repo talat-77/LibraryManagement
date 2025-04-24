@@ -44,14 +44,14 @@ namespace LibraryManagement.Persistence.Repository
            return entityEntry.State == EntityState.Deleted;
         }
 
-        public async Task<bool> RemoveAsync(Guid id)
+      
+
+        public async Task<bool> RemoveAsync(int id)
         {
             var deleted = await Table.FindAsync(id);
             Table.Remove(deleted);
-            await SaveAsync();  
+            await SaveAsync();
             return true;
-            
-         
         }
 
         public bool RemoveRange(List<T> model)
@@ -65,12 +65,13 @@ namespace LibraryManagement.Persistence.Repository
         public async Task<int> SaveAsync()
     =>await _context.SaveChangesAsync();
 
-        public bool Update(T model)
+        public async Task<bool> UpdateAsync(T model)
         {
-       EntityEntry<T> entityEntry = Table.Update(model);
-            _context.SaveChanges();
-          return entityEntry.State == EntityState.Modified;
-         
+
+
+            var entity = Table.Update(model);
+            await SaveAsync();
+            return entity.State == EntityState.Added;
 
         }
 
