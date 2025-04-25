@@ -21,6 +21,7 @@ namespace LibraryManagement.Application.Mapping
             CreateMap<CreateBookDto, Book>().ReverseMap();  
             CreateMap<ResultBookDto, Book>().ReverseMap();  
             CreateMap<UpdateBookDto, Book>().ReverseMap();
+
         }
     }
 }

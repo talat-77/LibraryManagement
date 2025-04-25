@@ -11,9 +11,6 @@ namespace LibraryManagement.Application.DTO.AuthorDtos
     public class CreateAuthorDto
     {
         public string Name { get; set; } = string.Empty;
-
-
-        [JsonConverter(typeof(CustomDateTimeConverter))]
          public DateTime BirthDate { get; set; }
     }
 }
